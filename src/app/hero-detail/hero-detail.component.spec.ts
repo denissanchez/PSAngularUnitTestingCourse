@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { of } from "rxjs";
@@ -37,6 +37,18 @@ describe("HeroDetailComponent", () => {
   it("should render hero name in a h2 tag", () => {
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector("h2").textContent).toContain("IRONMAN");
+    expect(fixture.nativeElement.querySelector("h2").textContent).toContain(
+      "IRONMAN"
+    );
   });
+
+  it("should call updateHero when save is called", fakeAsync(() => {
+    mockHeroService.updateHero.and.returnValue(of({}));
+    fixture.detectChanges();
+
+    fixture.componentInstance.save();
+    flush();
+
+    expect(mockHeroService.updateHero).toHaveBeenCalled();
+  }));
 });
