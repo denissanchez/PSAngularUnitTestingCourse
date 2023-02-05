@@ -5,7 +5,6 @@ import { By } from "@angular/platform-browser";
 
 describe("HeroComponent (shallow tests)", () => {
   let fixture: ComponentFixture<HeroComponent>;
-  let component: HeroComponent;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -14,7 +13,6 @@ describe("HeroComponent (shallow tests)", () => {
     });
 
     fixture = TestBed.createComponent(HeroComponent);
-    component = fixture.componentInstance;
   });
 
   it("should have the correct hero", () => {
@@ -37,6 +35,6 @@ describe("HeroComponent (shallow tests)", () => {
     fixture.detectChanges();
 
     expect(fixture.debugElement.query(By.css('a')).nativeElement.textContent).toContain('Iron Man')
-    expect(fixture.nativeElement.querySelector('a').textContent).toContain('Iron Man')
+    // expect(fixture.nativeElement.querySelector('a').textContent).toContain('Iron Man')
   });
 });
