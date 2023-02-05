@@ -1,5 +1,11 @@
 import { Location } from "@angular/common";
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  flush,
+  waitForAsync,
+} from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { of } from "rxjs";
@@ -50,5 +56,16 @@ describe("HeroDetailComponent", () => {
     flush();
 
     expect(mockHeroService.updateHero).toHaveBeenCalled();
+  }));
+
+  it("should call updateHero when save is called using waitForAsync", waitForAsync(() => {
+    mockHeroService.updateHero.and.returnValue(of({}));
+    fixture.detectChanges();
+
+    fixture.componentInstance.publishToThirdParty();
+    
+    fixture.whenStable().then(() => {
+      expect(mockHeroService.updateHero).toHaveBeenCalled();
+    });
   }));
 });
